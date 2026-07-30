@@ -1,0 +1,190 @@
+/* ==========================================================================
+   custom.css — complète Tailwind (CDN) pour ce qu'il ne fait pas nativement :
+   thème clair/sombre (variables CSS), curseur "spotlight", scrollbar,
+   timeline, animations du terminal.
+   ========================================================================== */
+
+/* ---------- Thème : variables CSS (light = défaut, .dark = surcharge) ----------
+   Format "R G B" pour être consommé par Tailwind via rgb(var(--x) / <alpha-value>) */
+:root {
+  --color-bg:             247 249 252;
+  --color-panel:          255 255 255;
+  --color-panel2:         240 244 250;
+  --color-line:           219 227 240;
+  --color-linesoft:       229 235 245;
+  --color-primary:        47 111 237;
+  --color-primary-light:  30 86 209;
+  --color-primary-strong: 21 63 163;
+  --color-accent:         14 116 144;
+  --color-muted:          71 85 105;
+  --color-dim:            100 116 139;
+  --color-ok:             22 163 74;
+  --color-warn:           180 83 9;
+  --color-ink:            15 23 42;
+}
+
+html.dark {
+  --color-bg:             6 10 20;
+  --color-panel:          13 21 38;
+  --color-panel2:         16 26 48;
+  --color-line:           28 42 71;
+  --color-linesoft:       22 33 58;
+  --color-primary:        47 111 237;
+  --color-primary-light:  110 161 255;
+  --color-primary-strong: 30 86 209;
+  --color-accent:         125 211 252;
+  --color-muted:          147 160 189;
+  --color-dim:            91 104 132;
+  --color-ok:             74 222 128;
+  --color-warn:           251 191 36;
+  --color-ink:            241 245 249;
+}
+
+html { scroll-behavior: smooth; }
+html, body { background-color: rgb(var(--color-bg)); transition: background-color .25s ease; }
+
+body {
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgb(var(--color-primary) / .14), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgb(var(--color-accent) / .08), transparent 60%),
+    rgb(var(--color-bg));
+}
+
+::selection { background: rgb(var(--color-primary)); color: #fff; }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: rgb(var(--color-bg)); }
+::-webkit-scrollbar-thumb { background: rgb(var(--color-line)); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--color-primary-strong)); }
+
+/* ---------- Bouton de bascule de thème ---------- */
+#themeToggle svg { width: 18px; height: 18px; }
+
+/* ---------- Curseur spotlight ---------- */
+@media (hover: hover) and (pointer: fine) {
+  body.has-glow-cursor { cursor: none; }
+  body.has-glow-cursor a,
+  body.has-glow-cursor button,
+  body.has-glow-cursor input,
+  body.has-glow-cursor [role="button"] { cursor: none; }
+}
+
+#cursor-glow {
+  position: fixed;
+  top: 0; left: 0;
+  width: 260px; height: 260px;
+  margin-left: -130px; margin-top: -130px;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(circle, rgba(47,111,237,.32) 0%, rgba(47,111,237,.12) 35%, transparent 70%);
+  filter: blur(2px);
+  opacity: 0;
+  transition: opacity .25s ease, width .25s ease, height .25s ease, margin .25s ease, background .25s ease;
+  will-change: transform;
+}
+#cursor-glow.is-active { opacity: 1; }
+#cursor-glow.is-hover {
+  width: 420px; height: 420px;
+  margin-left: -210px; margin-top: -210px;
+  background: radial-gradient(circle, rgba(110,161,255,.4) 0%, rgba(47,111,237,.16) 40%, transparent 72%);
+}
+#cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  margin-left: -3px; margin-top: -3px;
+  border-radius: 9999px;
+  background: #6ea1ff;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+#cursor-dot.is-active { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  #cursor-glow, #cursor-dot { display: none; }
+  body.has-glow-cursor { cursor: auto; }
+}
+
+/* ---------- Nav logo caret ---------- */
+.nav-caret {
+  display: inline-block;
+  width: 8px; height: 16px;
+  background: rgb(var(--color-primary));
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- Timeline ---------- */
+.timeline-line { border-left: 1px solid rgb(var(--color-line)); }
+.timeline-dot {
+  position: absolute; left: -33.5px; top: 4px;
+  width: 12px; height: 12px; border-radius: 9999px;
+  background: rgb(var(--color-bg)); border: 2px solid rgb(var(--color-primary));
+  box-shadow: 0 0 0 4px rgb(var(--color-panel));
+}
+.timeline-dot.is-current { background: rgb(var(--color-primary)); box-shadow: 0 0 0 4px rgb(var(--color-primary) / .35); }
+
+/* ---------- Terminal caret dans l'input ---------- */
+.term-input { caret-color: rgb(var(--color-primary-light)); }
+
+/* ---------- Sorties du terminal (générées en JS) ---------- */
+.line { white-space: pre-wrap; word-break: break-word; margin-bottom: 4px; }
+.prompt { color: rgb(var(--color-primary-light)); }
+.path-inline { color: rgb(var(--color-accent)); }
+.out-dim { color: rgb(var(--color-dim)); }
+.out-ok { color: rgb(var(--color-ok)); }
+.out-warn { color: rgb(var(--color-warn)); }
+.out-link { color: rgb(var(--color-primary-light)); text-decoration: underline; text-underline-offset: 3px; }
+kbd { font-family: inherit; }
+
+/* ---------- Reveal au scroll ---------- */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ---------- Filtres projets (état actif géré en JS) ---------- */
+.filter-btn:hover { color: #e7ecf7; }
+.filter-btn.active { background: #2f6fed; border-color: #2f6fed; color: #04102b; font-weight: 600; }
+
+/* ---------- Overlay terminal (parcours / projets) ---------- */
+.terminal-overlay.open { opacity: 1; pointer-events: auto; }
+
+/* ---------- Loader ---------- */
+#loader { transition: opacity .5s ease, visibility .5s ease; }
+#loader.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-bar-fill { animation: loaderFill 1.1s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes loaderFill { from { width: 0%; } to { width: 100%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ---------- Champs du formulaire de contact ---------- */
+.field-input {
+  width: 100%;
+  background: rgb(var(--color-panel2));
+  border: 1px solid rgb(var(--color-line));
+  color: rgb(var(--color-ink));
+  border-radius: .6rem;
+  padding: .7rem .85rem;
+  font-family: inherit;
+  font-size: .9rem;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.field-input::placeholder { color: rgb(var(--color-dim)); }
+.field-input:focus {
+  outline: none;
+  border-color: rgb(var(--color-primary));
+  box-shadow: 0 0 0 3px rgb(var(--color-primary) / .18);
+}
+
+/* ---------- Toast de confirmation (formulaire contact) ---------- */
+#formToast {
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .3s ease, transform .3s ease;
+  pointer-events: none;
+}
+#formToast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }

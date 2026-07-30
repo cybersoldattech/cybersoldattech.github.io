@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAKOUGNE NDE CHRIS SAMORY — CTO | Teach Lead</title>
+<!-- TODO: remplace le <title>, la meta description et le nom par tes infos -->
+<meta name="description" content="Portfolio de TAKOUGNE NDE CHRIS SAMORY, CTO | Teach Lead — projets, parcours et contact.">
+<meta name="theme-color" content="#f7f9fc">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<script>
+  (function(){
+    try {
+      if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+    } catch(e){}
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        screens: { xs: '480px' },
+        colors: {
+          bg:       'rgb(var(--color-bg) / <alpha-value>)',
+          panel:    'rgb(var(--color-panel) / <alpha-value>)',
+          panel2:   'rgb(var(--color-panel2) / <alpha-value>)',
+          line:     'rgb(var(--color-line) / <alpha-value>)',
+          linesoft: 'rgb(var(--color-linesoft) / <alpha-value>)',
+          primary: {
+            DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+            light:   'rgb(var(--color-primary-light) / <alpha-value>)',
+            strong:  'rgb(var(--color-primary-strong) / <alpha-value>)',
+          },
+          accent: 'rgb(var(--color-accent) / <alpha-value>)',
+          muted:  'rgb(var(--color-muted) / <alpha-value>)',
+          dim:    'rgb(var(--color-dim) / <alpha-value>)',
+          ok:     'rgb(var(--color-ok) / <alpha-value>)',
+          warn:   'rgb(var(--color-warn) / <alpha-value>)',
+          ink:    'rgb(var(--color-ink) / <alpha-value>)',
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+        boxShadow: {
+          glow: '0 0 0 1px rgb(var(--color-line)), 0 20px 60px -20px rgba(47,111,237,.25)',
+        },
+      }
+    }
+  }
+</script>
+<link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="bg-bg text-ink font-body antialiased">
+
+<!-- ============ LOADER ============ -->
+<div id="loader" class="fixed inset-0 z-[999] bg-bg flex items-center justify-center">
+  <div class="w-full max-w-xs px-6 font-mono text-sm">
+    <p class="text-dim mb-3">initialisation<span class="text-primary-light">...</span></p>
+    <div class="h-1 w-full bg-panel2 rounded-full overflow-hidden border border-line">
+      <div class="loader-bar-fill h-full bg-gradient-to-r from-primary to-primary-light rounded-full"></div>
+    </div>
+    <p class="text-dim mt-3 text-xs">chargement de <span class="text-primary-light">~/takougne-nde</span></p>
+  </div>
+</div>
+
+<!-- Curseur spotlight -->
+<div id="cursor-glow"></div>
+<div id="cursor-dot"></div>
+
+<header class="sticky top-0 z-40 bg-bg/70 backdrop-blur-md border-b border-linesoft">
+  <div class="max-w-6xl mx-auto px-6 h-[72px] flex items-center justify-between">
+    <a href="index.html" class="font-mono text-base flex items-center gap-1 glow-target">
+      <span class="text-primary-light">~</span><span class="text-dim">/</span>takougne-nde<span class="nav-caret ml-1"></span>
+    </a>
+
+    <nav id="navLinks" class="hidden md:flex items-center gap-1">
+      <a href="index.html" class="relative font-mono text-sm px-3.5 py-2 rounded-md text-primary-light glow-target">Accueil</a>
+      <a href="parcours.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Parcours</a>
+      <a href="projets.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Projets</a>
+      <a href="contact.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Contact</a>
+    </nav>
+
+    <div class="flex items-center gap-2.5">
+      <button onclick="document.querySelector('.hero-terminal input')?.focus(); document.querySelector('.hero-terminal')?.scrollIntoView({behavior:'smooth', block:'center'});"
+        class="hidden sm:flex items-center gap-2 bg-panel border border-line text-muted px-3.5 py-2 rounded-md font-mono text-xs hover:border-primary hover:text-primary-light transition glow-target">
+        <span class="w-1.5 h-1.5 rounded-full bg-ok shadow-[0_0_0_3px_rgba(74,222,128,.2)]"></span>
+        <span class="hidden sm:inline">terminal actif</span>
+      </button>
+      <button id="themeToggle" aria-label="Passer en mode sombre"
+        class="w-10 h-10 border border-line rounded-md bg-panel flex items-center justify-center text-muted hover:text-primary-light hover:border-primary transition glow-target">
+        <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+        <svg id="iconMoon" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false"
+        class="md:hidden w-10 h-10 border border-line rounded-md bg-panel flex flex-col items-center justify-center gap-1 glow-target">
+        <span class="w-4 h-0.5 bg-muted"></span><span class="w-4 h-0.5 bg-muted"></span><span class="w-4 h-0.5 bg-muted"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- menu mobile -->
+  <nav id="mobileNav" class="md:hidden hidden flex-col gap-1 border-t border-linesoft bg-panel px-4 py-3">
+    <a href="index.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-primary-light">Accueil</a>
+    <a href="parcours.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Parcours</a>
+    <a href="projets.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Projets</a>
+    <a href="contact.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="pt-14 pb-12 sm:pt-16">
+    <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+
+      <div class="reveal in">
+        <!-- Emplacement photo de profil -->
+        <!-- TODO: remplace le contenu ci-dessous par <img src="assets/avatar.jpg" alt="Prénom NOM" class="w-full h-full object-cover"> -->
+        <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-primary/40 bg-panel overflow-hidden flex items-center justify-center mb-5 glow-target">
+          <span class="font-display text-2xl text-primary-light">TNCS</span>
+        </div>
+
+        <span class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-primary-light">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_0_3px_rgba(47,111,237,.35)]"></span>
+          Disponible pour de nouvelles missions
+        </span>
+
+        <h1 class="font-display font-semibold text-[2.1rem] space-y-2 sm:text-5xl leading-[1.1] mt-4 mb-5 -tracking-wide">
+          Bonjour, je suis <span class="text-primary-light">TAKOUGNE NDE </span><br>CTO | TEACH LEAD | SOFTWARE ENGINEER.
+        </h1>
+
+        <!-- TODO: remplace le paragraphe ci-dessous par ta propre bio -->
+        <p class="text-muted text-[17px] max-w-[46ch] mb-7 space-y-2">
+          Je conçois et développe des applications web robustes, du back-end à l'interface.
+          J'aime transformer des besoins concrets en produits simples, rapides et maintenables.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mb-8">
+          <a href="projets.html" class="glow-target inline-flex items-center gap-2 px-5 py-3 rounded-md font-semibold text-sm bg-gradient-to-b from-primary-light to-primary text-[#061024] shadow-[0_10px_30px_-12px_rgba(47,111,237,.35)] hover:-translate-y-0.5 transition">Voir mes projets</a>
+          <a href="parcours.html" class="glow-target inline-flex items-center gap-2 px-5 py-3 rounded-md font-medium text-sm border border-line text-ink hover:border-primary hover:text-primary-light transition">Mon parcours</a>
+        </div>
+
+        <div class="flex flex-wrap gap-6 font-mono text-xs text-dim">
+          <div><b class="block font-display text-lg text-ink font-semibold">7+</b>ans d'expérience</div>
+          <div><b class="block font-display text-lg text-ink font-semibold">20+</b>projets livrés</div>
+          <div><b class="block font-display text-lg text-ink font-semibold">FR / EN</b>langues de travail</div>
+        </div>
+      </div>
+
+      <div class="reveal in">
+        <!-- ============ TERMINAL (signature du site) ============ -->
+        <div class="hero-terminal terminal bg-gradient-to-b from-panel2 to-panel border border-line rounded-2xl shadow-glow overflow-hidden font-mono text-[13px] sm:text-sm" data-boot="true">
+          <div class="flex items-center gap-2 px-4 py-3 bg-white/[.02] border-b border-linesoft">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#febc2e]"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></span>
+            <span class="ml-2 text-dim text-xs truncate">visiteur@portfolio: ~</span>
+          </div>
+
+          <div class="terminal-body px-4 sm:px-5 py-4 h-[240px] sm:h-[320px] overflow-y-auto text-ink/80 leading-relaxed" role="log" aria-live="polite"></div>
+
+          <div class="terminal-inputline flex items-center gap-2 px-4 sm:px-5 pb-4">
+            <span class="prompt text-primary-light shrink-0">visiteur@portfolio<span class="text-dim">:</span><span class="text-accent">~</span><span class="text-dim">$</span></span>
+            <input type="text" autocomplete="off" spellcheck="false" aria-label="Terminal interactif — tape une commande"
+              class="term-input flex-1 min-w-0 bg-transparent border-none text-ink text-base sm:text-sm focus:outline-none">
+          </div>
+
+          <div class="flex flex-wrap gap-x-3.5 gap-y-1.5 px-4 sm:px-5 py-3 border-t border-linesoft text-[11px] text-dim">
+            <span><kbd class="bg-panel border border-line rounded px-1.5 text-muted">help</kbd> commandes</span>
+            <span class="hidden xs:inline"><kbd class="bg-panel border border-line rounded px-1.5 text-muted">whoami</kbd> à propos</span>
+            <span class="hidden sm:inline"><kbd class="bg-panel border border-line rounded px-1.5 text-muted">projets</kbd> naviguer</span>
+            <span class="hidden sm:inline"><kbd class="bg-panel border border-line rounded px-1.5 text-muted">↑ ↓</kbd> historique</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="py-16 sm:py-20  border-y border-linesoft">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal max-w-xl mb-10">
+        <span class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-primary-light">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_0_3px_rgba(47,111,237,.35)]"></span>Stack
+        </span>
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl mt-3 mb-2">Ce que j'utilise au quotidien</h2>
+        <p class="text-muted m-0">Un aperçu des technologies avec lesquelles je construis mes projets. <!-- TODO: adapte cette liste --></p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+        <div class="reveal glow-target bg-panel border border-line rounded-xl p-4 hover:-translate-y-1 hover:border-primary transition"><span class="font-mono text-[10.5px] uppercase tracking-wide text-dim">Frontend</span><h4 class="font-display text-sm font-semibold mt-2 mb-1">React / JS</h4><p class="text-xs text-muted m-0">Interfaces réactives.</p></div>
+        <div class="reveal glow-target bg-panel border border-line rounded-xl p-4 hover:-translate-y-1 hover:border-primary transition"><span class="font-mono text-[10.5px] uppercase tracking-wide text-dim">Frontend</span><h4 class="font-display text-sm font-semibold mt-2 mb-1">HTML / CSS</h4><p class="text-xs text-muted m-0">Responsive, accessible.</p></div>
+        <div class="reveal glow-target bg-panel border border-line rounded-xl p-4 hover:-translate-y-1 hover:border-primary transition"><span class="font-mono text-[10.5px] uppercase tracking-wide text-dim">Backend</span><h4 class="font-display text-sm font-semibold mt-2 mb-1">Node / Express</h4><p class="text-xs text-muted m-0">APIs REST.</p></div>
+        <div class="reveal glow-target bg-panel border border-line rounded-xl p-4 hover:-translate-y-1 hover:border-primary transition"><span class="font-mono text-[10.5px] uppercase tracking-wide text-dim">Données</span><h4 class="font-display text-sm font-semibold mt-2 mb-1">SQL / MongoDB</h4><p class="text-xs text-muted m-0">Modélisation.</p></div>
+        <div class="reveal glow-target bg-panel border border-line rounded-xl p-4 hover:-translate-y-1 hover:border-primary transition"><span class="font-mono text-[10.5px] uppercase tracking-wide text-dim">Outils</span><h4 class="font-display text-sm font-semibold mt-2 mb-1">Git / CI-CD</h4><p class="text-xs text-muted m-0">Déploiements auto.</p></div>
+        <div class="reveal glow-target bg-panel border border-line rounded-xl p-4 hover:-translate-y-1 hover:border-primary transition"><span class="font-mono text-[10.5px] uppercase tracking-wide text-dim">Cloud</span><h4 class="font-display text-sm font-semibold mt-2 mb-1">Docker / VPS</h4><p class="text-xs text-muted m-0">Mise en production.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJETS (aperçu) ============ -->
+  <section class="py-16 sm:py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal max-w-xl mb-10">
+        <span class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-primary-light">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_0_3px_rgba(47,111,237,.35)]"></span>Sélection
+        </span>
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl mt-3 mb-2">Projets récents</h2>
+        <p class="text-muted m-0">Quelques réalisations représentatives. Retrouve la liste complète sur la page dédiée.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- TODO: remplace ces 3 cartes par tes vrais projets -->
+        <article class="reveal glow-target bg-panel border border-line rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:border-primary hover:shadow-[0_20px_40px_-22px_rgba(47,111,237,.35)] transition">
+          <div class="h-36 bg-gradient-to-br from-primary/30 to-transparent bg-panel2 border-b border-linesoft flex items-center justify-center font-mono text-xs text-primary-light">// projet-01</div>
+          <div class="p-5 flex flex-col gap-2.5 flex-1">
+            <h3 class="font-display text-base font-semibold m-0">Plateforme de gestion de tâches</h3>
+            <p class="text-[13.5px] text-muted m-0 flex-1">Application web collaborative avec tableaux, notifications en temps réel et rôles utilisateurs.</p>
+            <div class="flex flex-wrap gap-1.5"><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">React</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">Node.js</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">MongoDB</span></div>
+            <div class="flex gap-3.5 font-mono text-xs text-muted"><a href="#" class="hover:text-primary-light">↗ Démo</a><a href="#" class="hover:text-primary-light">⌥ Code</a></div>
+          </div>
+        </article>
+
+        <article class="reveal glow-target bg-panel border border-line rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:border-primary hover:shadow-[0_20px_40px_-22px_rgba(47,111,237,.35)] transition">
+          <div class="h-36 bg-gradient-to-br from-primary/30 to-transparent bg-panel2 border-b border-linesoft flex items-center justify-center font-mono text-xs text-primary-light">// projet-02</div>
+          <div class="p-5 flex flex-col gap-2.5 flex-1">
+            <h3 class="font-display text-base font-semibold m-0">API e-commerce</h3>
+            <p class="text-[13.5px] text-muted m-0 flex-1">API REST sécurisée pour catalogue produits, panier et paiement, documentée avec Swagger.</p>
+            <div class="flex flex-wrap gap-1.5"><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">Express</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">PostgreSQL</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">Stripe</span></div>
+            <div class="flex gap-3.5 font-mono text-xs text-muted"><a href="#" class="hover:text-primary-light">↗ Démo</a><a href="#" class="hover:text-primary-light">⌥ Code</a></div>
+          </div>
+        </article>
+
+        <article class="reveal glow-target bg-panel border border-line rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:border-primary hover:shadow-[0_20px_40px_-22px_rgba(47,111,237,.35)] transition">
+          <div class="h-36 bg-gradient-to-br from-primary/30 to-transparent bg-panel2 border-b border-linesoft flex items-center justify-center font-mono text-xs text-primary-light">// projet-03</div>
+          <div class="p-5 flex flex-col gap-2.5 flex-1">
+            <h3 class="font-display text-base font-semibold m-0">Site vitrine formation</h3>
+            <p class="text-[13.5px] text-muted m-0 flex-1">Site responsive pour un organisme de formation, avec CMS léger pour gérer le contenu.</p>
+            <div class="flex flex-wrap gap-1.5"><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">HTML/CSS</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">JavaScript</span></div>
+            <div class="flex gap-3.5 font-mono text-xs text-muted"><a href="#" class="hover:text-primary-light">↗ Démo</a><a href="#" class="hover:text-primary-light">⌥ Code</a></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="text-center mt-9">
+        <a href="projets.html" class="glow-target inline-flex items-center gap-2 px-5 py-3 rounded-md font-medium text-sm border border-line text-ink hover:border-primary hover:text-primary-light transition">Voir tous les projets →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="py-16 sm:py-20" id="contact">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal bg-panel border border-line rounded-2xl p-8 sm:p-11 flex flex-wrap items-center justify-between gap-7">
+        <div>
+          <span class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-primary-light">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_0_3px_rgba(47,111,237,.35)]"></span>Contact
+          </span>
+          <h2 class="font-display font-semibold text-2xl sm:text-3xl mt-3 mb-2">Une idée de projet ? Discutons-en.</h2>
+          <p class="text-muted m-0">Réponse sous 24 à 48h — en français ou en anglais.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <!-- TODO: remplace ces liens -->
+          <a href="contact.html" class="glow-target inline-flex items-center gap-2 px-5 py-3 rounded-md font-semibold text-sm bg-gradient-to-b from-primary-light to-primary text-[#061024]">Aller à la page contact →</a>
+          <a href="https://github.com/ton-pseudo" target="_blank" rel="noopener" class="glow-target inline-flex items-center gap-2 px-5 py-3 rounded-md font-medium text-sm border border-line hover:border-primary hover:text-primary-light transition">GitHub</a>
+          <a href="https://linkedin.com/in/ton-pseudo" target="_blank" rel="noopener" class="glow-target inline-flex items-center gap-2 px-5 py-3 rounded-md font-medium text-sm border border-line hover:border-primary hover:text-primary-light transition">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="max-w-6xl mx-auto px-6 py-9 pb-14 flex flex-wrap justify-between gap-2.5 text-dim text-xs">
+  <span>© <span data-year></span> TAKOUGNE NDE CHRIS SAMORY — Tous droits réservés.</span>
+  <span><a href="#contact" class="text-muted hover:text-primary-light">Me contacter</a></span>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('burger').addEventListener('click', (e) => {
+    const nav = document.getElementById('mobileNav');
+    const open = nav.classList.toggle('hidden') === false;
+    nav.classList.toggle('flex', open);
+    e.currentTarget.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+</script>
+</body>
+</html>

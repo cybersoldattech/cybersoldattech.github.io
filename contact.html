@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — TAKOUGNE NDE CHRIS SAMORY</title>
+<meta name="description" content="Contactez TAKOUGNE NDE CHRIS SAMORY, développeur web fullstack — email, formulaire, réseaux.">
+<meta name="theme-color" content="#f7f9fc">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!-- Anti-flash : applique le thème sauvegardé avant le premier rendu (clair = défaut) -->
+<script>
+  (function(){
+    try {
+      if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+    } catch(e){}
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        screens: { xs: '480px' },
+        colors: {
+          bg:       'rgb(var(--color-bg) / <alpha-value>)',
+          panel:    'rgb(var(--color-panel) / <alpha-value>)',
+          panel2:   'rgb(var(--color-panel2) / <alpha-value>)',
+          line:     'rgb(var(--color-line) / <alpha-value>)',
+          linesoft: 'rgb(var(--color-linesoft) / <alpha-value>)',
+          primary: {
+            DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+            light:   'rgb(var(--color-primary-light) / <alpha-value>)',
+            strong:  'rgb(var(--color-primary-strong) / <alpha-value>)',
+          },
+          accent: 'rgb(var(--color-accent) / <alpha-value>)',
+          muted:  'rgb(var(--color-muted) / <alpha-value>)',
+          dim:    'rgb(var(--color-dim) / <alpha-value>)',
+          ok:     'rgb(var(--color-ok) / <alpha-value>)',
+          warn:   'rgb(var(--color-warn) / <alpha-value>)',
+          ink:    'rgb(var(--color-ink) / <alpha-value>)',
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+        boxShadow: { glow: '0 0 0 1px rgb(var(--color-line)), 0 20px 60px -20px rgba(47,111,237,.25)' },
+      }
+    }
+  }
+</script>
+<link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="bg-bg text-ink font-body antialiased">
+
+<div id="loader" class="fixed inset-0 z-[999] bg-bg flex items-center justify-center">
+  <div class="w-full max-w-xs px-6 font-mono text-sm">
+    <p class="text-dim mb-3">initialisation<span class="text-primary-light">...</span></p>
+    <div class="h-1 w-full bg-panel2 rounded-full overflow-hidden border border-line">
+      <div class="loader-bar-fill h-full bg-gradient-to-r from-primary to-primary-light rounded-full"></div>
+    </div>
+    <p class="text-dim mt-3 text-xs">chargement de <span class="text-primary-light">~/contact</span></p>
+  </div>
+</div>
+
+<div id="cursor-glow"></div>
+<div id="cursor-dot"></div>
+
+<header class="sticky top-0 z-40 bg-bg/70 backdrop-blur-md border-b border-linesoft">
+  <div class="max-w-6xl mx-auto px-6 h-[72px] flex items-center justify-between">
+    <a href="index.html" class="font-mono text-base flex items-center gap-1 glow-target">
+      <span class="text-primary-light">~</span><span class="text-dim">/</span>takougne-nde<span class="nav-caret ml-1"></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-1">
+      <a href="index.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Accueil</a>
+      <a href="parcours.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Parcours</a>
+      <a href="projets.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Projets</a>
+      <a href="contact.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-primary-light glow-target">Contact</a>
+    </nav>
+    <div class="flex items-center gap-2.5">
+      <button id="fabTrigger" class="hidden sm:flex items-center gap-2 bg-panel border border-line text-muted px-3.5 py-2 rounded-md font-mono text-xs hover:border-primary hover:text-primary-light transition glow-target">
+        <span class="w-1.5 h-1.5 rounded-full bg-ok shadow-[0_0_0_3px_rgba(74,222,128,.2)]"></span>
+        <span class="hidden sm:inline">terminal actif</span>
+      </button>
+      <button id="themeToggle" aria-label="Passer en mode sombre"
+        class="w-10 h-10 border border-line rounded-md bg-panel flex items-center justify-center text-muted hover:text-primary-light hover:border-primary transition glow-target">
+        <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+        <svg id="iconMoon" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false" class="md:hidden w-10 h-10 border border-line rounded-md bg-panel flex flex-col items-center justify-center gap-1 glow-target">
+        <span class="w-4 h-0.5 bg-muted"></span><span class="w-4 h-0.5 bg-muted"></span><span class="w-4 h-0.5 bg-muted"></span>
+      </button>
+    </div>
+  </div>
+  <nav id="mobileNav" class="md:hidden hidden flex-col gap-1 border-t border-linesoft bg-panel px-4 py-3">
+    <a href="index.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Accueil</a>
+    <a href="parcours.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Parcours</a>
+    <a href="projets.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Projets</a>
+    <a href="contact.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-primary-light">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="pt-14 pb-4 sm:pt-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="reveal in inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-primary-light">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_0_3px_rgba(47,111,237,.35)]"></span>Contact
+      </span>
+      <h1 class="reveal in font-display font-semibold text-[2rem] sm:text-4xl mt-3 mb-4 -tracking-wide">Parlons de votre projet</h1>
+      <p class="reveal in text-muted max-w-[60ch] text-base">
+        Une question, une mission, une opportunité ? Écrivez-moi via le formulaire ou directement par email — je réponds sous 24 à 48h, en français ou en anglais.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-10 sm:py-14">
+    <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-[1.3fr_1fr] gap-8 lg:gap-10 items-start">
+
+      <!-- ---------- Formulaire ---------- -->
+      <div class="reveal bg-panel border border-line rounded-2xl p-6 sm:p-8 relative">
+        <form id="contactForm" class="flex flex-col gap-4" novalidate>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="cf-name" class="block font-mono text-xs uppercase tracking-wide text-dim mb-1.5">Nom</label>
+              <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Votre nom" class="field-input">
+            </div>
+            <div>
+              <label for="cf-email" class="block font-mono text-xs uppercase tracking-wide text-dim mb-1.5">Email</label>
+              <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="vous@exemple.com" class="field-input">
+            </div>
+          </div>
+          <div>
+            <label for="cf-subject" class="block font-mono text-xs uppercase tracking-wide text-dim mb-1.5">Sujet</label>
+            <input id="cf-subject" name="subject" type="text" autocomplete="off" placeholder="Ex. Proposition de mission freelance" class="field-input">
+          </div>
+          <div>
+            <label for="cf-message" class="block font-mono text-xs uppercase tracking-wide text-dim mb-1.5">Message</label>
+            <textarea id="cf-message" name="message" required rows="6" placeholder="Décrivez votre projet ou votre demande..." class="field-input resize-y"></textarea>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4 mt-1">
+            <button type="submit" class="glow-target inline-flex items-center gap-2 px-5 py-3 rounded-md font-semibold text-sm bg-gradient-to-b from-primary-light to-primary text-[#061024] shadow-[0_10px_30px_-12px_rgba(47,111,237,.35)] hover:-translate-y-0.5 transition">
+              Envoyer le message
+            </button>
+            <span class="font-mono text-xs text-dim">Ouvre votre client mail avec le message prérempli.</span>
+          </div>
+        </form>
+
+        <div id="formToast" class="mt-4 flex items-center gap-2 bg-ok/10 border border-ok/25 text-ok rounded-lg px-4 py-3 text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0"><path d="m9 12 2 2 4-4"></path><circle cx="12" cy="12" r="10"></circle></svg>
+          Ton client mail devrait s'ouvrir avec le message prérempli — sinon, écris directement à l'adresse ci-contre.
+        </div>
+      </div>
+
+      <!-- ---------- Coordonnées directes ---------- -->
+      <div class="flex flex-col gap-4">
+        <!-- TODO: remplace ces coordonnées par les tiennes -->
+        <a href="mailto:samorytakougne@gmail.com" class="reveal glow-target bg-panel border border-line rounded-xl p-5 flex items-center gap-4 hover:-translate-y-1 hover:border-primary transition">
+          <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 border border-primary/25 flex items-center justify-center text-primary-light">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg>
+          </div>
+          <div class="min-w-0">
+            <span class="block font-mono text-[11px] uppercase tracking-wide text-dim">Email</span>
+            <span class="block text-sm font-medium truncate">samorytakougne@gmail.com</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/cybersoldattech" target="_blank" rel="noopener" class="reveal glow-target bg-panel border border-line rounded-xl p-5 flex items-center gap-4 hover:-translate-y-1 hover:border-primary transition">
+          <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 border border-primary/25 flex items-center justify-center text-primary-light">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.93c.58.1.79-.25.79-.56v-2.16c-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.7 5.4-5.27 5.69.42.36.78 1.08.78 2.18v3.23c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"></path></svg>
+          </div>
+          <div class="min-w-0">
+            <span class="block font-mono text-[11px] uppercase tracking-wide text-dim">GitHub</span>
+            <span class="block text-sm font-medium truncate">github.com/cybersoldattech</span>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/chris-samory-takougne-nde-003084224/" target="_blank" rel="noopener" class="reveal glow-target bg-panel border border-line rounded-xl p-5 flex items-center gap-4 hover:-translate-y-1 hover:border-primary transition">
+          <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 border border-primary/25 flex items-center justify-center text-primary-light">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"></path></svg>
+          </div>
+          <div class="min-w-0">
+            <span class="block font-mono text-[11px] uppercase tracking-wide text-dim">LinkedIn</span>
+            <span class="block text-sm font-medium truncate">linkedin.com/in/chris-samory-takougne-nde-003084224</span>
+          </div>
+        </a>
+
+        <div class="reveal bg-panel border border-line rounded-xl p-5">
+          <span class="block font-mono text-[11px] uppercase tracking-wide text-dim mb-1.5">Disponibilité</span>
+          <p class="text-sm text-muted m-0">Disponible pour des missions freelance.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="max-w-6xl mx-auto px-6 py-9 pb-14 flex flex-wrap justify-between gap-2.5 text-dim text-xs">
+  <span>© <span data-year></span> TAKOUGNE NDE CHRIS SAMORY — Tous droits réservés.</span>
+  <span><a href="contact.html" class="text-muted hover:text-primary-light">Me contacter</a></span>
+</footer>
+
+<button id="termFab" aria-label="Ouvrir le terminal"
+  class="term-fab fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-[90] w-14 h-14 rounded-full bg-gradient-to-b from-primary-light to-primary text-[#04102b] font-mono font-bold text-base flex items-center justify-center shadow-[0_12px_28px_-8px_rgba(47,111,237,.4)] hover:-translate-y-0.5 transition glow-target">&gt;_</button>
+
+<div id="termOverlay" class="terminal-overlay fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity">
+  <div class="terminal relative w-full max-w-xl bg-gradient-to-b from-panel2 to-panel border border-line rounded-2xl shadow-glow overflow-hidden font-mono text-[13px] sm:text-sm" data-boot="false">
+    <button class="terminal-close absolute top-3 right-3.5 text-dim hover:text-ink text-xl leading-none z-10" aria-label="Fermer le terminal">&times;</button>
+    <div class="flex items-center gap-2 px-4 py-3 bg-white/[.02] border-b border-linesoft">
+      <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-[#febc2e]"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></span>
+      <span class="ml-2 text-dim text-xs truncate">visiteur@portfolio: ~/contact</span>
+    </div>
+    <div class="terminal-body px-4 sm:px-5 py-4 h-[55vh] max-h-[300px] overflow-y-auto text-ink/80 leading-relaxed" role="log" aria-live="polite">
+      <div class="line out-dim">Tape "help" pour la liste des commandes.</div>
+    </div>
+    <div class="terminal-inputline flex items-center gap-2 px-4 sm:px-5 pb-4">
+      <span class="prompt text-primary-light shrink-0">visiteur@portfolio<span class="text-dim">:</span><span class="text-accent">~</span><span class="text-dim">$</span></span>
+      <input type="text" autocomplete="off" spellcheck="false" aria-label="Terminal interactif — tape une commande"
+        class="term-input flex-1 min-w-0 bg-transparent border-none text-ink text-base sm:text-sm focus:outline-none">
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('burger').addEventListener('click', (e) => {
+    const nav = document.getElementById('mobileNav');
+    const open = nav.classList.toggle('hidden') === false;
+    nav.classList.toggle('flex', open);
+    e.currentTarget.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.getElementById('fabTrigger').addEventListener('click', () => document.getElementById('termFab').click());
+</script>
+</body>
+</html>

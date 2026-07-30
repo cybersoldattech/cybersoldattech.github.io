@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parcours — TAKOUGNE NDE CHRIS SAMORY</title>
+<meta name="description" content="Parcours professionnel et académique de TAKOUGNE NDE CHRIS SAMORY, développeur web fullstack.">
+<meta name="theme-color" content="#f7f9fc">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!-- Anti-flash : applique le thème sauvegardé avant le premier rendu (clair = défaut) -->
+<script>
+  (function(){
+    try {
+      if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+    } catch(e){}
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        screens: { xs: '480px' },
+        colors: {
+          bg:       'rgb(var(--color-bg) / <alpha-value>)',
+          panel:    'rgb(var(--color-panel) / <alpha-value>)',
+          panel2:   'rgb(var(--color-panel2) / <alpha-value>)',
+          line:     'rgb(var(--color-line) / <alpha-value>)',
+          linesoft: 'rgb(var(--color-linesoft) / <alpha-value>)',
+          primary: {
+            DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+            light:   'rgb(var(--color-primary-light) / <alpha-value>)',
+            strong:  'rgb(var(--color-primary-strong) / <alpha-value>)',
+          },
+          accent: 'rgb(var(--color-accent) / <alpha-value>)',
+          muted:  'rgb(var(--color-muted) / <alpha-value>)',
+          dim:    'rgb(var(--color-dim) / <alpha-value>)',
+          ok:     'rgb(var(--color-ok) / <alpha-value>)',
+          warn:   'rgb(var(--color-warn) / <alpha-value>)',
+          ink:    'rgb(var(--color-ink) / <alpha-value>)',
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+        boxShadow: { glow: '0 0 0 1px rgb(var(--color-line)), 0 20px 60px -20px rgba(47,111,237,.25)' },
+      }
+    }
+  }
+</script>
+<link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="bg-bg text-ink font-body antialiased">
+
+<div id="loader" class="fixed inset-0 z-[999] bg-bg flex items-center justify-center">
+  <div class="w-full max-w-xs px-6 font-mono text-sm">
+    <p class="text-dim mb-3">initialisation<span class="text-primary-light">...</span></p>
+    <div class="h-1 w-full bg-panel2 rounded-full overflow-hidden border border-line">
+      <div class="loader-bar-fill h-full bg-gradient-to-r from-primary to-primary-light rounded-full"></div>
+    </div>
+    <p class="text-dim mt-3 text-xs">chargement de <span class="text-primary-light">~/parcours</span></p>
+  </div>
+</div>
+
+<div id="cursor-glow"></div>
+<div id="cursor-dot"></div>
+
+<header class="sticky top-0 z-40 bg-bg/70 backdrop-blur-md border-b border-linesoft">
+  <div class="max-w-6xl mx-auto px-6 h-[72px] flex items-center justify-between">
+    <a href="index.html" class="font-mono text-base flex items-center gap-1 glow-target">
+      <span class="text-primary-light">~</span><span class="text-dim">/</span>takougnende<span class="nav-caret ml-1"></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-1">
+      <a href="index.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Accueil</a>
+      <a href="parcours.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-primary-light glow-target">Parcours</a>
+      <a href="projets.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Projets</a>
+      <a href="contact.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Contact</a>
+    </nav>
+    <div class="flex items-center gap-2.5">
+      <button id="fabTrigger" class="hidden sm:flex items-center gap-2 bg-panel border border-line text-muted px-3.5 py-2 rounded-md font-mono text-xs hover:border-primary hover:text-primary-light transition glow-target">
+        <span class="w-1.5 h-1.5 rounded-full bg-ok shadow-[0_0_0_3px_rgba(74,222,128,.2)]"></span>
+        <span class="hidden sm:inline">terminal actif</span>
+      </button>
+      <button id="themeToggle" aria-label="Passer en mode sombre"
+        class="w-10 h-10 border border-line rounded-md bg-panel flex items-center justify-center text-muted hover:text-primary-light hover:border-primary transition glow-target">
+        <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+        <svg id="iconMoon" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false" class="md:hidden w-10 h-10 border border-line rounded-md bg-panel flex flex-col items-center justify-center gap-1 glow-target">
+        <span class="w-4 h-0.5 bg-muted"></span><span class="w-4 h-0.5 bg-muted"></span><span class="w-4 h-0.5 bg-muted"></span>
+      </button>
+    </div>
+  </div>
+  <nav id="mobileNav" class="md:hidden hidden flex-col gap-1 border-t border-linesoft bg-panel px-4 py-3">
+    <a href="index.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Accueil</a>
+    <a href="parcours.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-primary-light">Parcours</a>
+    <a href="projets.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Projets</a>
+    <a href="contact.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="pt-14 pb-4 sm:pt-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="reveal in inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-primary-light">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_0_3px_rgba(47,111,237,.35)]"></span>Parcours
+      </span>
+      <h1 class="reveal in font-display font-semibold text-[2rem] sm:text-4xl mt-3 mb-4 -tracking-wide">Mon parcours académique &amp; professionnel</h1>
+      <p class="reveal in text-muted max-w-[60ch] text-base">
+        Un fil chronologique de mes formations et expériences, de mes débuts jusqu'à aujourd'hui,
+        suivi du détail de mon parcours scolaire et de mes certifications.
+
+      </p>
+    </div>
+  </section>
+
+  <section class="py-14 sm:py-16">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="timeline-line relative pl-7">
+
+        <div class="reveal relative pb-11">
+          <span class="timeline-dot is-current"></span>
+          <span class="block font-mono text-xs uppercase tracking-wide text-primary-light mb-1.5">2024 — Aujourd'hui</span>
+          <div class="bg-panel border border-line rounded-xl px-5 py-5 sm:px-6">
+            <h3 class="font-display text-base sm:text-lg font-semibold m-0">
+              Développeur Web Fullstack
+              <span class="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded-full border border-primary/30 text-primary-light ml-2 align-middle">emploi</span>
+            </h3>
+            <span class="block font-mono text-[13.5px] text-muted mb-2.5">Nom de l'entreprise — Ville</span>
+            <p class="text-sm text-muted m-0">Développement et maintenance d'applications web pour des clients variés, du cahier des charges à la mise en production.</p>
+            <ul class="list-disc pl-4.5 mt-2.5 text-[13.5px] text-muted space-y-1">
+              <li>Conception d'APIs REST et intégration front-end en React</li>
+              <li>Mise en place de pipelines CI/CD et amélioration des performances</li>
+              <li>Encadrement ponctuel de développeurs juniors</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="reveal relative pb-11">
+          <span class="timeline-dot"></span>
+          <span class="block font-mono text-xs uppercase tracking-wide text-primary-light mb-1.5">2023 — 2024</span>
+          <div class="bg-panel border border-line rounded-xl px-5 py-5 sm:px-6">
+            <h3 class="font-display text-base sm:text-lg font-semibold m-0">
+              Développeur Web (alternance)
+              <span class="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded-full border border-primary/30 text-primary-light ml-2 align-middle">emploi</span>
+            </h3>
+            <span class="block font-mono text-[13.5px] text-muted mb-2.5">Nom de l'entreprise — Ville</span>
+            <p class="text-sm text-muted m-0">Première expérience professionnelle en environnement agile, sur un produit web en croissance.</p>
+            <ul class="list-disc pl-4.5 mt-2.5 text-[13.5px] text-muted space-y-1">
+              <li>Participation aux sprints et revues de code</li>
+              <li>Développement de fonctionnalités front-end et back-end</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="reveal relative pb-11">
+          <span class="timeline-dot"></span>
+          <span class="block font-mono text-xs uppercase tracking-wide text-primary-light mb-1.5">2021 — 2023</span>
+          <div class="bg-panel border border-line rounded-xl px-5 py-5 sm:px-6">
+            <h3 class="font-display text-base sm:text-lg font-semibold m-0">
+              Titre de la formation
+              <span class="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded-full border border-accent/30 text-accent ml-2 align-middle">formation</span>
+            </h3>
+            <span class="block font-mono text-[13.5px] text-muted mb-2.5">Nom de l'école / organisme — Ville</span>
+            <p class="text-sm text-muted m-0">Formation intensive au développement web fullstack (langages, frameworks, méthodologie projet).</p>
+            <ul class="list-disc pl-4.5 mt-2.5 text-[13.5px] text-muted space-y-1">
+              <li>Projets pratiques en équipe, méthode agile</li>
+              <li>Bases solides en algorithmique et architecture logicielle</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="reveal relative">
+          <span class="timeline-dot"></span>
+          <span class="block font-mono text-xs uppercase tracking-wide text-primary-light mb-1.5">2020 — 2021</span>
+          <div class="bg-panel border border-line rounded-xl px-5 py-5 sm:px-6">
+            <h3 class="font-display text-base sm:text-lg font-semibold m-0">
+              Diplôme précédent
+              <span class="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded-full border border-accent/30 text-accent ml-2 align-middle">formation</span>
+            </h3>
+            <span class="block font-mono text-[13.5px] text-muted mb-2.5">Nom de l'établissement — Ville</span>
+            <p class="text-sm text-muted m-0">Description courte de cette étape de ton parcours (études générales, reconversion, etc.).</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ÉDUCATION (parcours scolaire + certifications) ============ -->
+  <section class="py-14 sm:py-16 bg-panel2/60 border-y border-linesoft">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="reveal max-w-xl mb-10">
+        <span class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-primary-light">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_0_3px_rgba(47,111,237,.35)]"></span>Éducation
+        </span>
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl mt-3 mb-2">Parcours scolaire &amp; certifications</h2>
+        <p class="text-muted m-0">Mes diplômes et les certifications que j'ai obtenues pour renforcer mes compétences. <!-- TODO: remplace par tes vraies infos --></p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-14">
+
+        <!-- ---------- Parcours scolaire ---------- -->
+        <div>
+          <h3 class="font-display text-sm font-semibold uppercase tracking-wide text-dim mb-4">Parcours scolaire</h3>
+          <div class="space-y-4">
+            <!-- TODO: remplace ces diplômes par les tiens -->
+            <div class="reveal glow-target bg-panel border border-line rounded-xl p-5 flex gap-4 hover:-translate-y-1 hover:border-primary transition">
+              <div class="shrink-0 w-10 h-10 rounded-lg bg-primary/10 border border-primary/25 flex items-center justify-center text-primary-light">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M22 10 12 5 2 10l10 5 10-5Z"></path><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"></path></svg>
+              </div>
+              <div>
+                <div class="flex items-baseline justify-between gap-3 flex-wrap">
+                  <h4 class="font-display text-base font-semibold m-0">Titre du diplôme (Bac+5 / Master)</h4>
+                  <span class="font-mono text-xs text-dim shrink-0">2023 — 2025</span>
+                </div>
+                <p class="text-[13.5px] text-muted mt-1 mb-0">Nom de l'école / université — Ville</p>
+                <p class="text-[13.5px] text-muted mt-1.5 mb-0">Spécialisation développement web fullstack, architectures logicielles et gestion de projet.</p>
+              </div>
+            </div>
+
+            <div class="reveal glow-target bg-panel border border-line rounded-xl p-5 flex gap-4 hover:-translate-y-1 hover:border-primary transition">
+              <div class="shrink-0 w-10 h-10 rounded-lg bg-primary/10 border border-primary/25 flex items-center justify-center text-primary-light">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M22 10 12 5 2 10l10 5 10-5Z"></path><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"></path></svg>
+              </div>
+              <div>
+                <div class="flex items-baseline justify-between gap-3 flex-wrap">
+                  <h4 class="font-display text-base font-semibold m-0">Titre du diplôme (Bac+3 / Licence)</h4>
+                  <span class="font-mono text-xs text-dim shrink-0">2021 — 2023</span>
+                </div>
+                <p class="text-[13.5px] text-muted mt-1 mb-0">Nom de l'école / université — Ville</p>
+                <p class="text-[13.5px] text-muted mt-1.5 mb-0">Bases en algorithmique, programmation orientée objet et bases de données.</p>
+              </div>
+            </div>
+
+            <div class="reveal glow-target bg-panel border border-line rounded-xl p-5 flex gap-4 hover:-translate-y-1 hover:border-primary transition">
+              <div class="shrink-0 w-10 h-10 rounded-lg bg-primary/10 border border-primary/25 flex items-center justify-center text-primary-light">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M22 10 12 5 2 10l10 5 10-5Z"></path><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"></path></svg>
+              </div>
+              <div>
+                <div class="flex items-baseline justify-between gap-3 flex-wrap">
+                  <h4 class="font-display text-base font-semibold m-0">Baccalauréat — série / spécialité</h4>
+                  <span class="font-mono text-xs text-dim shrink-0">2021</span>
+                </div>
+                <p class="text-[13.5px] text-muted mt-1 mb-0">Nom du lycée — Ville</p>
+                <p class="text-[13.5px] text-muted mt-1.5 mb-0">Mention (optionnel). Options scientifiques / numériques.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- Certifications ---------- -->
+        <div>
+          <h3 class="font-display text-sm font-semibold uppercase tracking-wide text-dim mb-4">Certifications</h3>
+          <div class="space-y-3">
+            <!-- TODO: remplace ces certifications par les tiennes -->
+            <div class="reveal glow-target bg-panel border border-line rounded-xl p-4 flex items-center gap-4 hover:-translate-y-1 hover:border-primary transition">
+              <div class="shrink-0 w-10 h-10 rounded-lg bg-ok/10 border border-ok/25 flex items-center justify-center text-ok">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m9 12 2 2 4-4"></path><circle cx="12" cy="12" r="10"></circle></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="font-display text-sm font-semibold m-0 truncate">Nom de la certification</h4>
+                <p class="text-[13px] text-muted m-0">Organisme émetteur</p>
+              </div>
+              <span class="font-mono text-xs text-dim shrink-0">2025</span>
+            </div>
+
+            <div class="reveal glow-target bg-panel border border-line rounded-xl p-4 flex items-center gap-4 hover:-translate-y-1 hover:border-primary transition">
+              <div class="shrink-0 w-10 h-10 rounded-lg bg-ok/10 border border-ok/25 flex items-center justify-center text-ok">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m9 12 2 2 4-4"></path><circle cx="12" cy="12" r="10"></circle></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="font-display text-sm font-semibold m-0 truncate">Nom de la certification</h4>
+                <p class="text-[13px] text-muted m-0">Organisme émetteur</p>
+              </div>
+              <span class="font-mono text-xs text-dim shrink-0">2024</span>
+            </div>
+
+            <div class="reveal glow-target bg-panel border border-line rounded-xl p-4 flex items-center gap-4 hover:-translate-y-1 hover:border-primary transition">
+              <div class="shrink-0 w-10 h-10 rounded-lg bg-ok/10 border border-ok/25 flex items-center justify-center text-ok">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m9 12 2 2 4-4"></path><circle cx="12" cy="12" r="10"></circle></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="font-display text-sm font-semibold m-0 truncate">Nom de la certification</h4>
+                <p class="text-[13px] text-muted m-0">Organisme émetteur</p>
+              </div>
+              <span class="font-mono text-xs text-dim shrink-0">2023</span>
+            </div>
+
+            <div class="reveal glow-target bg-panel border border-line rounded-xl p-4 flex items-center gap-4 hover:-translate-y-1 hover:border-primary transition">
+              <div class="shrink-0 w-10 h-10 rounded-lg bg-ok/10 border border-ok/25 flex items-center justify-center text-ok">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m9 12 2 2 4-4"></path><circle cx="12" cy="12" r="10"></circle></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="font-display text-sm font-semibold m-0 truncate">Nom de la certification</h4>
+                <p class="text-[13px] text-muted m-0">Organisme émetteur</p>
+              </div>
+              <span class="font-mono text-xs text-dim shrink-0">2022</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="max-w-6xl mx-auto px-6 py-9 pb-14 flex flex-wrap justify-between gap-2.5 text-dim text-xs">
+  <span>© <span data-year></span> TAKOUGNE NDE CHRIS SAMORY — Tous droits réservés.</span>
+  <span><a href="contact.html" class="text-muted hover:text-primary-light">Me contacter</a></span>
+</footer>
+
+<!-- Terminal flottant -->
+<button id="termFab" aria-label="Ouvrir le terminal"
+  class="term-fab fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-[90] w-14 h-14 rounded-full bg-gradient-to-b from-primary-light to-primary text-[#04102b] font-mono font-bold text-base flex items-center justify-center shadow-[0_12px_28px_-8px_rgba(47,111,237,.4)] hover:-translate-y-0.5 transition glow-target">&gt;_</button>
+
+<div id="termOverlay" class="terminal-overlay fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity">
+  <div class="terminal relative w-full max-w-xl bg-gradient-to-b from-panel2 to-panel border border-line rounded-2xl shadow-glow overflow-hidden font-mono text-[13px] sm:text-sm" data-boot="false">
+    <button class="terminal-close absolute top-3 right-3.5 text-dim hover:text-ink text-xl leading-none z-10" aria-label="Fermer le terminal">&times;</button>
+    <div class="flex items-center gap-2 px-4 py-3 bg-white/[.02] border-b border-linesoft">
+      <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-[#febc2e]"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></span>
+      <span class="ml-2 text-dim text-xs truncate">visiteur@portfolio: ~/parcours</span>
+    </div>
+    <div class="terminal-body px-4 sm:px-5 py-4 h-[55vh] max-h-[300px] overflow-y-auto text-ink/80 leading-relaxed" role="log" aria-live="polite">
+      <div class="line out-dim">Tape "help" pour la liste des commandes.</div>
+    </div>
+    <div class="terminal-inputline flex items-center gap-2 px-4 sm:px-5 pb-4">
+      <span class="prompt text-primary-light shrink-0">visiteur@portfolio<span class="text-dim">:</span><span class="text-accent">~</span><span class="text-dim">$</span></span>
+      <input type="text" autocomplete="off" spellcheck="false" aria-label="Terminal interactif — tape une commande"
+        class="term-input flex-1 min-w-0 bg-transparent border-none text-ink text-base sm:text-sm focus:outline-none">
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('burger').addEventListener('click', (e) => {
+    const nav = document.getElementById('mobileNav');
+    const open = nav.classList.toggle('hidden') === false;
+    nav.classList.toggle('flex', open);
+    e.currentTarget.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.getElementById('fabTrigger').addEventListener('click', () => document.getElementById('termFab').click());
+</script>
+</body>
+</html>

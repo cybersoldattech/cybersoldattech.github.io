@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projets — TAKOUGNE NDE CHRIS SAMORY</title>
+<meta name="description" content="Projets réalisés par TAKOUGNE NDE CHRIS SAMORY, développeur web fullstack.">
+<meta name="theme-color" content="#f7f9fc">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!-- Anti-flash : applique le thème sauvegardé avant le premier rendu (clair = défaut) -->
+<script>
+  (function(){
+    try {
+      if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+    } catch(e){}
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        screens: { xs: '480px' },
+        colors: {
+          bg:       'rgb(var(--color-bg) / <alpha-value>)',
+          panel:    'rgb(var(--color-panel) / <alpha-value>)',
+          panel2:   'rgb(var(--color-panel2) / <alpha-value>)',
+          line:     'rgb(var(--color-line) / <alpha-value>)',
+          linesoft: 'rgb(var(--color-linesoft) / <alpha-value>)',
+          primary: {
+            DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+            light:   'rgb(var(--color-primary-light) / <alpha-value>)',
+            strong:  'rgb(var(--color-primary-strong) / <alpha-value>)',
+          },
+          accent: 'rgb(var(--color-accent) / <alpha-value>)',
+          muted:  'rgb(var(--color-muted) / <alpha-value>)',
+          dim:    'rgb(var(--color-dim) / <alpha-value>)',
+          ok:     'rgb(var(--color-ok) / <alpha-value>)',
+          warn:   'rgb(var(--color-warn) / <alpha-value>)',
+          ink:    'rgb(var(--color-ink) / <alpha-value>)',
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+        boxShadow: { glow: '0 0 0 1px rgb(var(--color-line)), 0 20px 60px -20px rgba(47,111,237,.25)' },
+      }
+    }
+  }
+</script>
+<link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="bg-bg text-ink font-body antialiased">
+
+<div id="loader" class="fixed inset-0 z-[999] bg-bg flex items-center justify-center">
+  <div class="w-full max-w-xs px-6 font-mono text-sm">
+    <p class="text-dim mb-3">initialisation<span class="text-primary-light">...</span></p>
+    <div class="h-1 w-full bg-panel2 rounded-full overflow-hidden border border-line">
+      <div class="loader-bar-fill h-full bg-gradient-to-r from-primary to-primary-light rounded-full"></div>
+    </div>
+    <p class="text-dim mt-3 text-xs">chargement de <span class="text-primary-light">~/projets</span></p>
+  </div>
+</div>
+
+<div id="cursor-glow"></div>
+<div id="cursor-dot"></div>
+
+<header class="sticky top-0 z-40 bg-bg/70 backdrop-blur-md border-b border-linesoft">
+  <div class="max-w-6xl mx-auto px-6 h-[72px] flex items-center justify-between">
+    <a href="index.html" class="font-mono text-base flex items-center gap-1 glow-target">
+      <span class="text-primary-light">~</span><span class="text-dim">/</span>takougne-nde<span class="nav-caret ml-1"></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-1">
+      <a href="index.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Accueil</a>
+      <a href="parcours.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Parcours</a>
+      <a href="projets.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-primary-light glow-target">Projets</a>
+      <a href="contact.html" class="font-mono text-sm px-3.5 py-2 rounded-md text-muted hover:text-ink hover:bg-panel glow-target">Contact</a>
+    </nav>
+    <div class="flex items-center gap-2.5">
+      <button id="fabTrigger" class="hidden sm:flex items-center gap-2 bg-panel border border-line text-muted px-3.5 py-2 rounded-md font-mono text-xs hover:border-primary hover:text-primary-light transition glow-target">
+        <span class="w-1.5 h-1.5 rounded-full bg-ok shadow-[0_0_0_3px_rgba(74,222,128,.2)]"></span>
+        <span class="hidden sm:inline">terminal actif</span>
+      </button>
+      <button id="themeToggle" aria-label="Passer en mode sombre"
+        class="w-10 h-10 border border-line rounded-md bg-panel flex items-center justify-center text-muted hover:text-primary-light hover:border-primary transition glow-target">
+        <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+        <svg id="iconMoon" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false" class="md:hidden w-10 h-10 border border-line rounded-md bg-panel flex flex-col items-center justify-center gap-1 glow-target">
+        <span class="w-4 h-0.5 bg-muted"></span><span class="w-4 h-0.5 bg-muted"></span><span class="w-4 h-0.5 bg-muted"></span>
+      </button>
+    </div>
+  </div>
+  <nav id="mobileNav" class="md:hidden hidden flex-col gap-1 border-t border-linesoft bg-panel px-4 py-3">
+    <a href="index.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Accueil</a>
+    <a href="parcours.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Parcours</a>
+    <a href="projets.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-primary-light">Projets</a>
+    <a href="contact.html" class="font-mono text-sm px-3 py-2.5 rounded-md text-muted">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="pt-14 pb-4 sm:pt-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="reveal in inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-primary-light">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_0_3px_rgba(47,111,237,.35)]"></span>Projets
+      </span>
+      <h1 class="reveal in font-display font-semibold text-[2rem] sm:text-4xl mt-3 mb-4 -tracking-wide">Ce que j'ai construit</h1>
+      <p class="reveal in text-muted max-w-[60ch] text-base">
+        Une sélection de projets personnels et professionnels. <!-- TODO: remplace par tes vrais projets, liens et technos -->
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12 sm:py-16">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="reveal in flex flex-wrap gap-2 mb-9">
+        <button data-filter="all" class="filter-btn active font-mono text-[13px] px-4 py-2 rounded-full border border-line text-muted transition">Tous</button>
+        <button data-filter="web" class="filter-btn font-mono text-[13px] px-4 py-2 rounded-full border border-line text-muted transition">Web</button>
+        <button data-filter="api" class="filter-btn font-mono text-[13px] px-4 py-2 rounded-full border border-line text-muted transition">API / Backend</button>
+        <button data-filter="mobile" class="filter-btn font-mono text-[13px] px-4 py-2 rounded-full border border-line text-muted transition">Mobile</button>
+        <button data-filter="formation" class="filter-btn font-mono text-[13px] px-4 py-2 rounded-full border border-line text-muted transition">Formation</button>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- TODO: duplique/modifie ces cartes pour chacun de tes projets -->
+        <article class="reveal glow-target project-card bg-panel border border-line rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:border-primary hover:shadow-[0_20px_40px_-22px_rgba(47,111,237,.35)] transition" data-tags="web,api">
+          <div class="h-36 bg-gradient-to-br from-primary/30 to-transparent bg-panel2 border-b border-linesoft flex items-center justify-center font-mono text-xs text-primary-light">// projet-01</div>
+          <div class="p-5 flex flex-col gap-2.5 flex-1">
+            <h3 class="font-display text-base font-semibold m-0">Plateforme de gestion de tâches</h3>
+            <p class="text-[13.5px] text-muted m-0 flex-1">Application web collaborative avec tableaux type Kanban, notifications en temps réel et gestion des rôles utilisateurs.</p>
+            <div class="flex flex-wrap gap-1.5"><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">React</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">Node.js</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">MongoDB</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">Socket.io</span></div>
+            <div class="flex gap-3.5 font-mono text-xs text-muted"><a href="#" target="_blank" rel="noopener" class="hover:text-primary-light">↗ Démo</a><a href="#" target="_blank" rel="noopener" class="hover:text-primary-light">⌥ Code source</a></div>
+          </div>
+        </article>
+
+        <article class="reveal glow-target project-card bg-panel border border-line rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:border-primary hover:shadow-[0_20px_40px_-22px_rgba(47,111,237,.35)] transition" data-tags="api">
+          <div class="h-36 bg-gradient-to-br from-primary/30 to-transparent bg-panel2 border-b border-linesoft flex items-center justify-center font-mono text-xs text-primary-light">// projet-02</div>
+          <div class="p-5 flex flex-col gap-2.5 flex-1">
+            <h3 class="font-display text-base font-semibold m-0">API e-commerce</h3>
+            <p class="text-[13.5px] text-muted m-0 flex-1">API REST sécurisée pour la gestion d'un catalogue produits, panier et paiement, avec documentation Swagger.</p>
+            <div class="flex flex-wrap gap-1.5"><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">Express</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">PostgreSQL</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">Stripe</span></div>
+            <div class="flex gap-3.5 font-mono text-xs text-muted"><a href="#" target="_blank" rel="noopener" class="hover:text-primary-light">↗ Démo</a><a href="#" target="_blank" rel="noopener" class="hover:text-primary-light">⌥ Code source</a></div>
+          </div>
+        </article>
+
+        <article class="reveal glow-target project-card bg-panel border border-line rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:border-primary hover:shadow-[0_20px_40px_-22px_rgba(47,111,237,.35)] transition" data-tags="web,formation">
+          <div class="h-36 bg-gradient-to-br from-primary/30 to-transparent bg-panel2 border-b border-linesoft flex items-center justify-center font-mono text-xs text-primary-light">// projet-03</div>
+          <div class="p-5 flex flex-col gap-2.5 flex-1">
+            <h3 class="font-display text-base font-semibold m-0">Site vitrine formation</h3>
+            <p class="text-[13.5px] text-muted m-0 flex-1">Site responsive pour un organisme de formation, avec CMS léger permettant de gérer le contenu sans coder.</p>
+            <div class="flex flex-wrap gap-1.5"><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">HTML/CSS</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">JavaScript</span></div>
+            <div class="flex gap-3.5 font-mono text-xs text-muted"><a href="#" target="_blank" rel="noopener" class="hover:text-primary-light">↗ Démo</a><a href="#" target="_blank" rel="noopener" class="hover:text-primary-light">⌥ Code source</a></div>
+          </div>
+        </article>
+
+        <article class="reveal glow-target project-card bg-panel border border-line rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:border-primary hover:shadow-[0_20px_40px_-22px_rgba(47,111,237,.35)] transition" data-tags="mobile,web">
+          <div class="h-36 bg-gradient-to-br from-primary/30 to-transparent bg-panel2 border-b border-linesoft flex items-center justify-center font-mono text-xs text-primary-light">// projet-04</div>
+          <div class="p-5 flex flex-col gap-2.5 flex-1">
+            <h3 class="font-display text-base font-semibold m-0">Application de suivi budgétaire</h3>
+            <p class="text-[13.5px] text-muted m-0 flex-1">App web responsive (PWA) pour suivre ses dépenses, avec graphiques et export des données.</p>
+            <div class="flex flex-wrap gap-1.5"><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">React</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">Chart.js</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">PWA</span></div>
+            <div class="flex gap-3.5 font-mono text-xs text-muted"><a href="#" target="_blank" rel="noopener" class="hover:text-primary-light">↗ Démo</a><a href="#" target="_blank" rel="noopener" class="hover:text-primary-light">⌥ Code source</a></div>
+          </div>
+        </article>
+
+        <article class="reveal glow-target project-card bg-panel border border-line rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:border-primary hover:shadow-[0_20px_40px_-22px_rgba(47,111,237,.35)] transition" data-tags="api,formation">
+          <div class="h-36 bg-gradient-to-br from-primary/30 to-transparent bg-panel2 border-b border-linesoft flex items-center justify-center font-mono text-xs text-primary-light">// projet-05</div>
+          <div class="p-5 flex flex-col gap-2.5 flex-1">
+            <h3 class="font-display text-base font-semibold m-0">Support de formation "API REST"</h3>
+            <p class="text-[13.5px] text-muted m-0 flex-1">Support pédagogique et exercices pratiques pour initier des débutants à la conception d'APIs REST.</p>
+            <div class="flex flex-wrap gap-1.5"><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">Node.js</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">Pédagogie</span></div>
+            <div class="flex gap-3.5 font-mono text-xs text-muted"><a href="#" target="_blank" rel="noopener" class="hover:text-primary-light">↗ Voir</a></div>
+          </div>
+        </article>
+
+        <article class="reveal glow-target project-card bg-panel border border-line rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:border-primary hover:shadow-[0_20px_40px_-22px_rgba(47,111,237,.35)] transition" data-tags="web">
+          <div class="h-36 bg-gradient-to-br from-primary/30 to-transparent bg-panel2 border-b border-linesoft flex items-center justify-center font-mono text-xs text-primary-light">// projet-06</div>
+          <div class="p-5 flex flex-col gap-2.5 flex-1">
+            <h3 class="font-display text-base font-semibold m-0">Portfolio v1</h3>
+            <p class="text-[13.5px] text-muted m-0 flex-1">Ancienne version de mon portfolio personnel, entièrement en HTML/CSS/JS sans framework.</p>
+            <div class="flex flex-wrap gap-1.5"><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">HTML</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">CSS</span><span class="font-mono text-[11px] text-primary-light bg-primary/10 border border-primary/25 px-2 py-0.5 rounded-full">JS</span></div>
+            <div class="flex gap-3.5 font-mono text-xs text-muted"><a href="#" target="_blank" rel="noopener" class="hover:text-primary-light">⌥ Code source</a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="max-w-6xl mx-auto px-6 py-9 pb-14 flex flex-wrap justify-between gap-2.5 text-dim text-xs">
+  <span>© <span data-year></span> TAKOUGNE NDE CHRIS SAMORY — Tous droits réservés.</span>
+  <span><a href="contact.html" class="text-muted hover:text-primary-light">me contacter</a></span>
+</footer>
+
+<button id="termFab" aria-label="Ouvrir le terminal"
+  class="term-fab fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-[90] w-14 h-14 rounded-full bg-gradient-to-b from-primary-light to-primary text-[#04102b] font-mono font-bold text-base flex items-center justify-center shadow-[0_12px_28px_-8px_rgba(47,111,237,.4)] hover:-translate-y-0.5 transition glow-target">&gt;_</button>
+
+<div id="termOverlay" class="terminal-overlay fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity">
+  <div class="terminal relative w-full max-w-xl bg-gradient-to-b from-panel2 to-panel border border-line rounded-2xl shadow-glow overflow-hidden font-mono text-[13px] sm:text-sm" data-boot="false">
+    <button class="terminal-close absolute top-3 right-3.5 text-dim hover:text-ink text-xl leading-none z-10" aria-label="Fermer le terminal">&times;</button>
+    <div class="flex items-center gap-2 px-4 py-3 bg-white/[.02] border-b border-linesoft">
+      <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-[#febc2e]"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></span>
+      <span class="ml-2 text-dim text-xs truncate">visiteur@portfolio: ~/projets</span>
+    </div>
+    <div class="terminal-body px-4 sm:px-5 py-4 h-[55vh] max-h-[300px] overflow-y-auto text-ink/80 leading-relaxed" role="log" aria-live="polite">
+      <div class="line out-dim">Tape "help" pour la liste des commandes.</div>
+    </div>
+    <div class="terminal-inputline flex items-center gap-2 px-4 sm:px-5 pb-4">
+      <span class="prompt text-primary-light shrink-0">visiteur@portfolio<span class="text-dim">:</span><span class="text-accent">~</span><span class="text-dim">$</span></span>
+      <input type="text" autocomplete="off" spellcheck="false" aria-label="Terminal interactif — tape une commande"
+        class="term-input flex-1 min-w-0 bg-transparent border-none text-ink text-base sm:text-sm focus:outline-none">
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('burger').addEventListener('click', (e) => {
+    const nav = document.getElementById('mobileNav');
+    const open = nav.classList.toggle('hidden') === false;
+    nav.classList.toggle('flex', open);
+    e.currentTarget.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.getElementById('fabTrigger').addEventListener('click', () => document.getElementById('termFab').click());
+</script>
+</body>
+</html>
